@@ -1,0 +1,5 @@
+auth_token = "eyJhbGcilA"
+did = "aff7500000000000000000"
+visitorid = "e8200000000015325"
+download_path = "download"
+tmp_path = "tmp"
