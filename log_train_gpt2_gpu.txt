@@ -1,0 +1,33 @@
+C:\Users\Conda\Desktop\Dev\mteam>python train_gpt2_gpu.py
+✅ 当前设备: cuda
+  0%|                                                                                         | 0/2790 [00:00<?, ?it/s]`loss_type=None` was set in the config but it is unrecognised.Using the default loss: `ForCausalLMLoss`.
+{'loss': 0.6938, 'grad_norm': 3.8688771724700928, 'learning_rate': 4.826164874551972e-05, 'epoch': 0.11}
+{'loss': 0.4063, 'grad_norm': 3.2311744689941406, 'learning_rate': 4.6469534050179214e-05, 'epoch': 0.22}
+{'loss': 0.3796, 'grad_norm': 2.3559672832489014, 'learning_rate': 4.467741935483871e-05, 'epoch': 0.32}
+{'loss': 0.3595, 'grad_norm': 3.1413235664367676, 'learning_rate': 4.288530465949821e-05, 'epoch': 0.43}
+{'loss': 0.344, 'grad_norm': 1.9328864812850952, 'learning_rate': 4.109318996415771e-05, 'epoch': 0.54}
+{'loss': 0.3377, 'grad_norm': 2.339555263519287, 'learning_rate': 3.93010752688172e-05, 'epoch': 0.65}
+{'loss': 0.326, 'grad_norm': 1.7203611135482788, 'learning_rate': 3.7508960573476705e-05, 'epoch': 0.75}
+{'loss': 0.3176, 'grad_norm': 1.7348337173461914, 'learning_rate': 3.57168458781362e-05, 'epoch': 0.86}
+{'loss': 0.3125, 'grad_norm': 1.8456823825836182, 'learning_rate': 3.39247311827957e-05, 'epoch': 0.97}
+{'loss': 0.3153, 'grad_norm': 1.9047036170959473, 'learning_rate': 3.21326164874552e-05, 'epoch': 1.08}
+{'loss': 0.3095, 'grad_norm': 1.7642509937286377, 'learning_rate': 3.0340501792114693e-05, 'epoch': 1.18}
+{'loss': 0.3026, 'grad_norm': 1.5872279405593872, 'learning_rate': 2.8548387096774192e-05, 'epoch': 1.29}
+{'loss': 0.3033, 'grad_norm': 2.025353193283081, 'learning_rate': 2.675627240143369e-05, 'epoch': 1.4}
+{'loss': 0.3031, 'grad_norm': 1.5283392667770386, 'learning_rate': 2.496415770609319e-05, 'epoch': 1.51}
+{'loss': 0.3047, 'grad_norm': 1.5343221426010132, 'learning_rate': 2.317204301075269e-05, 'epoch': 1.61}
+{'loss': 0.3, 'grad_norm': 1.9087716341018677, 'learning_rate': 2.1379928315412188e-05, 'epoch': 1.72}
+{'loss': 0.2919, 'grad_norm': 1.4328913688659668, 'learning_rate': 1.9587813620071683e-05, 'epoch': 1.83}
+{'loss': 0.2926, 'grad_norm': 1.5746335983276367, 'learning_rate': 1.7795698924731182e-05, 'epoch': 1.94}
+{'loss': 0.3061, 'grad_norm': 1.683438777923584, 'learning_rate': 1.600358422939068e-05, 'epoch': 2.04}
+{'loss': 0.2979, 'grad_norm': 1.6548854112625122, 'learning_rate': 1.4211469534050178e-05, 'epoch': 2.15}
+{'loss': 0.2838, 'grad_norm': 1.8237725496292114, 'learning_rate': 1.2419354838709677e-05, 'epoch': 2.26}
+{'loss': 0.2942, 'grad_norm': 1.6223108768463135, 'learning_rate': 1.0627240143369176e-05, 'epoch': 2.37}
+{'loss': 0.2931, 'grad_norm': 1.627806305885315, 'learning_rate': 8.835125448028675e-06, 'epoch': 2.47}
+{'loss': 0.2881, 'grad_norm': 1.5541942119598389, 'learning_rate': 7.043010752688173e-06, 'epoch': 2.58}
+{'loss': 0.2922, 'grad_norm': 1.4907125234603882, 'learning_rate': 5.250896057347671e-06, 'epoch': 2.69}
+{'loss': 0.2866, 'grad_norm': 1.722453236579895, 'learning_rate': 3.4587813620071686e-06, 'epoch': 2.8}
+{'loss': 0.2881, 'grad_norm': 1.3160905838012695, 'learning_rate': 1.6666666666666667e-06, 'epoch': 2.9}
+{'train_runtime': 1661.2044, 'train_samples_per_second': 26.868, 'train_steps_per_second': 1.68, 'train_loss': 0.3257507775419502, 'epoch': 3.0}
+100%|██████████████████████████████████████████████████████████████████████████████| 2790/2790 [27:41<00:00,  1.68it/s]
+✅ GPT-2 训练完成，已保存！
