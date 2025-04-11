@@ -8,6 +8,11 @@ def filter_free(torrents):
     free_torrents = [torrent for torrent in torrents if torrent.get("discount") == "FREE"]
     return json.dumps(free_torrents, indent=2, ensure_ascii=False)
 
+def filter_seeders(torrents, min_seeders_num="1"):
+    res_torrents = [torrent for torrent in torrents if int(torrent.get("seeders"))>=int(min_seeders_num)]
+    return json.dumps(res_torrents, indent=2, ensure_ascii=False)
+
+
 def filter_size(torrents, size_limit="10"): # Unit: GB
     size_limit_bytes = int(float(size_limit) * 1024 * 1024 * 1024)
     
@@ -27,8 +32,6 @@ def filter_size(torrents, size_limit="10"): # Unit: GB
 
 def filter_time(torrents, min_time_to_not_free="3"):
     min_time_seconds = int(float(min_time_to_not_free) * 3600)
-    now_timestamp = int(datetime.now(timezone.utc).timestamp())
-
     filtered_torrents = []
     for torrent in torrents:
         discount_end_time = torrent.get("discountEndTime")
@@ -39,8 +42,9 @@ def filter_time(torrents, min_time_to_not_free="3"):
         try:
             end_time_obj = datetime.strptime(discount_end_time, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
             end_time_timestamp = int(end_time_obj.timestamp())
-
-            if end_time_timestamp - now_timestamp < min_time_seconds:
+            now_time = int(str(int(time.time()))[:10])
+            #print(f"end_time_timestamp: {end_time_timestamp}, now_timestamp: {now_time}, hrs: {(end_time_timestamp-now_time-8*3600)/3600} hrs")
+            if end_time_timestamp - now_time - 8*3600 < min_time_seconds:
                 continue
         except ValueError:
             continue
@@ -127,7 +131,9 @@ class MTeam:
                             "size": item.get("size", "N/A"),
                             "id": item["status"].get("id", "N/A"),
                             "discount": item["status"].get("discount", "N/A"),
-                            "discountEndTime": item["status"].get("discountEndTime", "N/A"),
+                            "discountEndTime": item["status"].get("discountEndTime", "2025-01-01 12:30:00"),
+                            "seeders": item["status"].get("seeders", "0"),
+                            "leechers": item["status"].get("leechers", "0")
                         })
                 #print(json.dumps(result, indent=2, ensure_ascii=False))
                 return result
@@ -193,42 +199,13 @@ class MTeam:
         else:
             print(f"HTTP {response.status_code}: {response.text}")
             return None
-    def bet(self, pagenum="1"):
-        url = f"{self.base_url}/bet/betgameDetailLog"
-        boundary = f"----WebKitFormBoundary{uuid.uuid4().hex[:16]}"
-
-        self.headers.update({
-            "Ts": str(int(time.time())),
-            "Content-Type": f"multipart/form-data; boundary={boundary}",
-        })
-
-        payload = (
-            f"--{boundary}\r\n"
-            f"Content-Disposition: form-data; name=\"pageNumber\"\r\n\r\n"
-            f"{pagenum}\r\n"
-            f"--{boundary}\r\n"
-            f"Content-Disposition: form-data; name=\"pageSize\"\r\n\r\n"
-            f"100\r\n"
-            f"--{boundary}--\r\n"
-        )
-
-        response = self.session.post(url, headers=self.headers, data=payload)
-
-        if response.status_code == 200:
-            try:
-                return response.json()
-            except requests.exceptions.JSONDecodeError:
-                return {"error": "Invalid JSON response"}
-        else:
-            return {"error": f"HTTP {response.status_code}: {response.text}"}
-
 
 
 if __name__=="__main__":
     # Here is only for test
-    auth_token = ".."
-    did=""
-    visitorid=""
+    auth_token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmbU04YmtDUSIsInVpZCI6MjczMTUyLCJqdGkiOiJjMTFmNDU4NS1jYzdmLTQ0NzItYmZhOC0yMDU0NTYxYzBiODciLCJpc3MiOiJodHRwczovL2FwaS5tLXRlYW0uaW8iLCJpYXQiOjE3Mzc4MjU3NDYsImV4cCI6MTc0MDQxNzc0Nn0.4p5sHMRB6oCZn67xnx0vLvqqAmL1OfNF7eelEKAVB5j1BWi9DIOTBDQmJ_QR2kcDt0VrcBa8h_JEh0rb2BwplA"
+    did="aff75d136fe346a9ad85ca5aedd43d0c"
+    visitorid="e82a181335dbbd0a3a9f0c4a63d02410"
     mteam = MTeam(auth_token, did, visitorid)
     '''
     torrents = mteam.list()
@@ -250,5 +227,3 @@ if __name__=="__main__":
     #print(json.dumps(download_info, indent=2, ensure_ascii=False))
     '''
     #print(mteam.download(906462))
-    #bet = mteam.bet(pagenum="1")
-    #print(bet)
